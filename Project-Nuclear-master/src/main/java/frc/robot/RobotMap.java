@@ -21,17 +21,26 @@ public class RobotMap {
 
   public class Constants {
 
+    public class Field {
+      public static final double GRAVITY        = 386.09f;
+      public static final double GOAL_HEIGHT    = 98.25f;
+    }
     public class Intake {
       public static final double DEAD_PWR  = 0.00f;
       public static final double IN_PWR    = 0.30f;
       public static final double OUT_PWR   =-0.40f;
     }
     public class Shooter {
-        public static final double IDLE_PWR   = 0.10f;
-        public static final double SHOOT_PWR  = 0.80f;
-        public static final double SHOOT_IN_PWR  = 0.80f;
-        public static final double DEAD_PWR   =0.00f;
-        public static final double CONVEYOR   =0.20f;
+        public static final double IDLE_PWR       = 0.10f;
+        public static final double SHOOT_PWR      = 0.80f;
+        public static final double SHOOT_IN_PWR   = 0.80f;
+        public static final double DEAD_PWR       = 0.00f;
+
+        public static final double SHOOTER_HEIGHT = 25.00f;
+      }
+    public class Limelight {
+        public static final double LIME_HEIGHT    = 22.50f;
+        public static final double LIME_ANGLE     = 66.00f;
       }
     public class Wrist {
       public static final double IN_PWR       = 0.50f;

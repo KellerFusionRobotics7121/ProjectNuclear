@@ -27,7 +27,7 @@ public class AutoShoot extends CommandBase{
         shooter.d = (float) limelight.calculateDistance(); 
 
         //hopefully this math works
-        shooter.velocity = (float) Math.sqrt(shooter.g*shooter.d / shooter.denominator);
+        shooter.velocity = (float) Math.sqrt(RobotMap.Constants.Field.GRAVITY*shooter.d / shooter.denominator);
 
         shooter.setShooterPwr(shooter.velocity);
     }
