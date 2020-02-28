@@ -10,6 +10,12 @@ public class AutoShoot extends CommandBase{
     private final Limelight limelight;
     private final Shooter shooter;
 
+    public float d;         //distance between robot and goal
+    public float velocity;  //initial velocity (inches/second)
+    //constant based on RobotMap
+    public double deltaH;   //difference in between h2 and h1 (inches)
+    public double theta;    //angle of shooter (radians)
+
     public AutoShoot(Limelight limelight, Shooter shooter) {
         this.limelight = limelight;
         this.shooter = shooter;
@@ -24,12 +30,15 @@ public class AutoShoot extends CommandBase{
 
     @Override
     public void execute() {
-        shooter.d = (float) limelight.calculateDistance(); 
+        d = (float) limelight.calculateDistance(); 
 
         //hopefully this math works
-        shooter.velocity = (float) Math.sqrt(RobotMap.Constants.Field.GRAVITY*shooter.d / shooter.denominator);
+        deltaH = RobotMap.Constants.Field.GOAL_HEIGHT 
+               - RobotMap.Constants.Shooter.HEIGHT;
+        theta = (float) Math.toRadians(RobotMap.Constants.Shooter.ANGLE);
+        velocity = (float) Math.sqrt(RobotMap.Constants.Field.GRAVITY*Math.pow(d, 2) / (2*(deltaH - d * Math.tan(theta))));
 
-        shooter.setShooterPwr(shooter.velocity);
+        shooter.setShooterPwr(velocity);
     }
 
     public boolean isFinished(){

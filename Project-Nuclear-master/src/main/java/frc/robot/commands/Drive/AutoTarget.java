@@ -5,13 +5,14 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
+import frc.robot.RobotMap;
 
 public class AutoTarget extends CommandBase {
 
     private final Limelight limelight;
     private final Drive drive;
 
-    private static float KpAim;         //Propoartional control constant for angle
+    private static float KpAim;         //Proportional control constant for angle
     private static float minAimCommand; //minimum command to make robot turn
     private static float targetHOffset; //desired horizontal offset of target
     private static float headingError;  //Error = Target - Actual
@@ -45,7 +46,7 @@ public class AutoTarget extends CommandBase {
      * @return true if the robot is within range. false otherwise
      */
     private boolean getWithinRange(){ 
-        float kPDrive = 0.5f;
+        Double kPDrive = RobotMap.Constants.Limelight.kpDrive;
         float distance = (float) limelight.calculateDistance();
         if(distance < minDistance){
             drive.setArcade((distance - minDistance) * kPDrive, 0);
@@ -62,7 +63,7 @@ public class AutoTarget extends CommandBase {
      * Adjusts the angle of the robot
      */
     private boolean adjustAngle(){
-        float d2 = 8;   //horizontal distance between robot and shooter (inches)
+        double d2 = Math.abs(RobotMap.Constants.Limelight.X - RobotMap.Constants.Shooter.X);   //horizontal distance between limelight and shooter (inches)
         //hopefully this math is correct
         targetHOffset = (float) Math.atan(Math.toRadians(d2/limelight.calculateDistance())); 
         headingError = targetHOffset - (float) limelight.getHOffset();  //Error = Target - actual
@@ -92,5 +93,4 @@ public class AutoTarget extends CommandBase {
     public void end(boolean interrupted) {
         drive.setRaw(0, 0);
     }
-    
 }

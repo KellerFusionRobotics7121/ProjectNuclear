@@ -9,8 +9,8 @@ import frc.robot.RobotMap;
 
 public class Limelight extends SubsystemBase{
     
-    public final double angle = 66;      // angle between horizontal and limelight (degrees)
-    public final double height = RobotMap.Constants.Limelight.LIME_HEIGHT;       // height between ground and limelight (inches)
+    public final double angle = RobotMap.Constants.Limelight.ANGLE;      // angle between horizontal and limelight (degrees)
+    public final double height = RobotMap.Constants.Limelight.HEIGHT;       // height between ground and limelight (inches)
     private final double h2 = RobotMap.Constants.Field.GOAL_HEIGHT;             // height between ground and middle of goal (inches)
 
 

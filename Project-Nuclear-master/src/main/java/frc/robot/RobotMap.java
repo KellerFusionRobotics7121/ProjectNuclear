@@ -36,11 +36,15 @@ public class RobotMap {
         public static final double SHOOT_IN_PWR   = 0.80f;
         public static final double DEAD_PWR       = 0.00f;
 
-        public static final double SHOOTER_HEIGHT = 25.00f;
+        public static final double HEIGHT         = 25.00f;//Inches
+        public static final double ANGLE          = 66.00f;//Degrees
+        public static final double X              = 0.00f; //Inches
       }
     public class Limelight {
-        public static final double LIME_HEIGHT    = 22.50f;
-        public static final double LIME_ANGLE     = 66.00f;
+        public static final double HEIGHT     = 22.50f; //Inches
+        public static final double ANGLE      = 10.00f; //Degrees
+        public static final double X          = 0.00f;  //Inches
+        public static final double kpDrive    = 0.01f;
       }
     public class Wrist {
       public static final double IN_PWR       = 0.50f;
@@ -56,9 +60,9 @@ public class RobotMap {
       public static final double UP_POS       = 100f;
       public static final double DEAD_PWR     = 0.08f;
       public static final double UP_PWR       = 0.08f;
-      public static final double DOWN_PWR     = -0.08f;
+      public static final double DOWN_PWR     =-0.08f;
 
-      public static final double TWO_UP_PWR      = 0.08f;
+      public static final double TWO_UP_PWR   = 0.08f;
     }
 
     public class Drive {
@@ -73,29 +77,6 @@ public class RobotMap {
         public static final double kD = 0.00f;
       }
     }
-
-    public class Lift {
-
-      public static final double CTRL_PWR  = 1.00f;
-      public static final double tolerance = 200.0;
-      public static final double highLimit = 9000.0;
-
-      public class kPID {
-        public static final double kF = 0.00f;
-        public static final double kP = 0.2f;
-        public static final double kI = 0.00f;
-        public static final double kD = 0.00f;
-      }
-
-      // public class setpoints {
-      //   public static final double GROUND         = 0.0;
-      //   public static final double CARGO          = 3700.0;
-      //   public static final double PLAYER_STATION = 1800.0;
-      //   public static final double SHIP_LV1       = 3000.0;
-      //   public static final double SHIP_LV2 = 6000.0;
-      //   public static final double SHIP_LV3 = 9000.0;
-      // }
-    }
   }
 
   public class Sensors {
@@ -109,6 +90,7 @@ public class RobotMap {
   }
 
   public class Motors {
+    // CAN wired, so ports refer to Device ID
     public static final int LEFT_FRONT = 14;
     public static final int RIGHT_FRONT = 12;
     public static final int LEFT_FOLLOW = 15;
@@ -127,9 +109,6 @@ public class RobotMap {
     public static final int STAGEONE = 6;
     public static final int STAGETWO = 1;
     public static final int STAGETWO_FOLLOW = 62;
-    // CAN wired, so ports refer to Device ID
-    // public static final int RIGHT_LIFT = 2;
-    // public static final int LEFT_LIFT = 3;
   }
 
   public class Pneumatics {

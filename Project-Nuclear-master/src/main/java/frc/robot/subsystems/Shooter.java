@@ -20,28 +20,13 @@ import frc.robot.commands.Intake.*;
  */
 
 public class Shooter extends SubsystemBase {
-
-  public enum IntakeState {IN, OUT, STOPPED};
   
   private WPI_TalonSRX shooterBot, shooterTop;
-  //changing variables
-  public float d; //distance between robot and goal
-  public float velocity; //initial velocity (inches/second)
-  //constant based on RobotMap
-  public float denominator;
-  public double deltaH;   //difference in between h2 and h1 (inches)
-  public double theta;    //angle of shooter (radians)
-
   
   public Shooter() {
     shooterTop = new WPI_TalonSRX(RobotMap.Motors.SHOOTER_TOP);
     shooterBot = new WPI_TalonSRX(RobotMap.Motors.SHOOTER_BOT);
     setDefaultCommand(new ShootIdle(this));
-
-    deltaH = RobotMap.Constants.Field.GOAL_HEIGHT 
-           - RobotMap.Constants.Shooter.SHOOTER_HEIGHT;
-    theta = (float) Math.toRadians(RobotMap.Constants.Limelight.LIME_ANGLE);
-    denominator = (float) ((deltaH - Math.tan(theta)) * 2 * Math.cos(theta));
   }
 
   // shooter controls
