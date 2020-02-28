@@ -5,12 +5,13 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.RobotMap;
 
 public class Limelight extends SubsystemBase{
     
     public final double angle = 66;      // angle between horizontal and limelight (degrees)
-    public final double height = 22.5;       // height between ground and limelight (inches)
-    private final double h2 = 98.25;             // height between ground and middle of goal (inches)
+    public final double height = RobotMap.Constants.Limelight.LIME_HEIGHT;       // height between ground and limelight (inches)
+    private final double h2 = RobotMap.Constants.Field.GOAL_HEIGHT;             // height between ground and middle of goal (inches)
 
 
     private NetworkTable table;
