@@ -30,6 +30,13 @@ public class RobotMap {
       public static final double IN_PWR    = 0.30f;
       public static final double OUT_PWR   =-0.40f;
     }
+
+    public class Color{
+      public static final double ARM_PWR = 0.05f;
+      public static final double WHEEL_PWR = 0.50f;
+      public static final double DEAD_PWR = 0.00f;
+      public static final double IDLE_PWR = 0.00f;
+    }
     public class Shooter {
         public static final double IDLE_PWR       = 0.10f;
         public static final double SHOOT_PWR      = 0.80f;
@@ -66,7 +73,7 @@ public class RobotMap {
     }
 
     public class Drive {
-      public static final double HIGH = 0.80f;
+      public static final double HIGH = 0.70f;
       public static final double LOW  = 0.60f;
       public static final double k    = 1;
       public static final double DPAD = 0.80f;
@@ -109,6 +116,9 @@ public class RobotMap {
     public static final int STAGEONE = 6;
     public static final int STAGETWO = 1;
     public static final int STAGETWO_FOLLOW = 62;
+
+    public static final int COLOR_ARM = 32;
+    public static final int COLOR_WHEEL = 33;
   }
 
   public class Pneumatics {

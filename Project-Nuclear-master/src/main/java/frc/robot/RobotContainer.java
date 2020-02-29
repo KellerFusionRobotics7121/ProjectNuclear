@@ -36,6 +36,8 @@ import frc.robot.commands.Elevator.*;
 
 import frc.robot.subsystems.Limelight;
 
+import frc.robot.subsystems.ColorSpinner;
+
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -52,6 +54,7 @@ public class RobotContainer {
   public static Limelight limelight = new Limelight();
   // public static StageOne stageOne = new StageOne();
   public static StageTwo stageTwo = new StageTwo();
+  public static ColorSpinner colorSpinner = new ColorSpinner();
   // The robot's subsystems and commands are defined here...
 
 

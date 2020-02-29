@@ -47,7 +47,7 @@ public class Drive extends SubsystemBase {
     _leftFollower.follow(_leftFront);
 
     /* [3] flip values so robot moves forward when stick-forward/LEDs-green */
-    _rghtFront.setInverted(true); // !< Update this
+    _rghtFront.setInverted(false); // !< Update this
     _leftFront.setInverted(false); // !< Update this
 
     /*
