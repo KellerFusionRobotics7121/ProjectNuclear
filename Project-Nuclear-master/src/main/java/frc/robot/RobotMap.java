@@ -27,7 +27,7 @@ public class RobotMap {
     }
     public class Intake {
       public static final double DEAD_PWR  = 0.00f;
-      public static final double IN_PWR    = 0.30f;
+      public static final double IN_PWR    = 0.60f;
       public static final double OUT_PWR   =-0.40f;
     }
 
@@ -60,8 +60,8 @@ public class RobotMap {
     }
     public class Conveyor {
       public static final double IN_PWR       = 0.50f;
-      public static final double OUT_PWR      =-0.20f;
-      public static final double DEAD_PWR     = 0.08f;
+      public static final double OUT_PWR      =-0.80f;
+      public static final double DEAD_PWR     = 0.00f;
     }
     public class Elevator {
       public static final double UP_POS       = 100f;
@@ -77,6 +77,7 @@ public class RobotMap {
       public static final double LOW  = 0.60f;
       public static final double k    = 1;
       public static final double DPAD = 0.80f;
+      public static final double MIN = 0.30f;
       public class kPID {
         public static final double kF = 0.00f;
         public static final double kP = 0.01f;

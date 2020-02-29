@@ -16,6 +16,7 @@ public class AutoTarget extends CommandBase {
     private static float minAimCommand; //minimum command to make robot turn
     private static float targetHOffset; //desired horizontal offset of target
     private static float headingError;  //Error = Target - Actual
+    private static float steeringAdjust;
 
     private static float maxDistance;   //maximum distance the robot can shoot from
     private static float minDistance;   //minimum distance the robot can shoot from
@@ -29,16 +30,23 @@ public class AutoTarget extends CommandBase {
 
     @Override
     public void initialize(){
-        KpAim = 0.1f;
+        KpAim = 0.80f;
         minAimCommand = 0.05f;
         maxDistance = 144;
         minDistance = 48;
+        steeringAdjust = 0.00f;
     }
 
     @Override
     public void execute() {
-        if(this.adjustAngle())
-            this.getWithinRange();
+        //this.adjustAngle();
+        float a = (float) (0.50*(0.60 -  RobotMap.Constants.Drive.MIN));
+        headingError = (float) limelight.getHOffset();
+        steeringAdjust = (float)(-a*Math.cos(2*Math.PI/29.8*headingError)+a+RobotMap.Constants.Drive.MIN);
+        if (headingError > 0)
+            drive.setArcade(0, steeringAdjust);
+        else   
+            drive.setArcade(0, -steeringAdjust);
     }
 
     /**
@@ -64,29 +72,33 @@ public class AutoTarget extends CommandBase {
      */
     private boolean adjustAngle(){
         double d2 = Math.abs(RobotMap.Constants.Limelight.X - RobotMap.Constants.Shooter.X);   //horizontal distance between limelight and shooter (inches)
+        targetHOffset = (float) Math.atan(Math.toRadians(d2/limelight.calculateDistance()));
+        headingError = (float) limelight.getHOffset() - targetHOffset;
+        drive.setArcade(0, KpAim*headingError/29.8);
         //hopefully this math is correct
-        targetHOffset = (float) Math.atan(Math.toRadians(d2/limelight.calculateDistance())); 
-        headingError = targetHOffset - (float) limelight.getHOffset();  //Error = Target - actual
-        float steeringAdjust = 0.0f;
-        if (Math.abs(headingError) > 5.0)
-        {
-            steeringAdjust = KpAim*headingError;
-        }
-        else if (Math.abs(headingError) > 2.0)
-        {
-            steeringAdjust = KpAim*headingError + minAimCommand;
-        }
-        //retrieve rotation value and manipulate it with steeringAdjust
-        drive.setRaw(steeringAdjust, -steeringAdjust);
+ 
+        // headingError = targetHOffset - (float) limelight.getHOffset();  //Error = Target - actual
+        // float steeringAdjust = 0.0f;
+        // if (Math.abs(headingError) > 5.0)
+        // {
+        //     steeringAdjust = KpAim*headingError;
+        // }
+        // else if (Math.abs(headingError) > 2.0)
+        // {
+        //     steeringAdjust = KpAim*headingError + minAimCommand;
+        // }
+        // //retrieve rotation value and manipulate it with steeringAdjust
+
 
         return Math.abs(targetHOffset - (float) limelight.getHOffset()) < 3;
     }
 
     @Override
     public boolean isFinished(){
-        float distance = (float) limelight.calculateDistance();
-        return Math.abs(headingError) < 3 &&
-        distance > minDistance && distance < maxDistance;
+        // float distance = (float) limelight.calculateDistance();
+        // return Math.abs(headingError) < 3 &&
+        // distance > minDistance && distance < maxDistance;
+        return false;
     }
 
     @Override

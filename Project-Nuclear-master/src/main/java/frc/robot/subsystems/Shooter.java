@@ -32,8 +32,8 @@ public class Shooter extends SubsystemBase {
   // shooter controls
   
   public void setShooterPwr(double val) {
-    shooterBot.set(val);
-    shooterTop.set(-1 * val);
+    shooterBot.set(-val);
+    shooterTop.set(-val);
   }
 
   // NOTE: do not use - slow refresh rate

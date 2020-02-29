@@ -31,6 +31,7 @@ public class Invert extends CommandBase {
   public void execute() {
     drive.INVERT = !drive.INVERT;
     drive.setInvert(drive.INVERT);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

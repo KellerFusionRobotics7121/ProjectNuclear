@@ -16,6 +16,7 @@ import frc.Controller.CustomGamepad;
 import frc.robot.subsystems.Drive;
 import frc.robot.commands.Drive.DriveControl;
 import frc.robot.commands.Drive.Invert;
+import frc.robot.commands.Drive.AutoTarget;
 
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.Intake.IntakeIn;
@@ -78,17 +79,16 @@ public class RobotContainer {
   private void configureButtonBindings() {
     logitechF310.righJoystickButton.toggleWhenPressed(new IntakeIn(intake));
     logitechF310.lefJoystickButton.toggleWhenPressed(new IntakeOut(intake));
-    logitechF310.y.whileHeld(new ConveyorIn(conveyor));
-    logitechF310.x.whileHeld(new ConveyorOut(conveyor));
+    logitechF310.x.whileHeld(new ConveyorIn(conveyor));
+    logitechF310.y.whileHeld(new ConveyorOut(conveyor));
     logitechF310.a.whileHeld(new Shoot(shooter));
     // logitechF310.lb.whileHeld(new StageOneUp());
     // logitechF310.lb.whenReleased(new StageOneDown());
     logitechF310.start.whenPressed(new Invert(drive));
-    if (logitechF310.rightTriggerPressed()){
-      new WristControl(wrist);
-    }
+    if (logitechF310.rightTriggerPressed()) new WristControl(wrist);
     logitechF310.rb.whileHeld(new WristControl(wrist));
     if (logitechF310.leftTriggerPressed())  new StageTwoUp(stageTwo);
+    logitechF310.b.whileHeld(new AutoTarget(limelight, drive));
   }
 
 
@@ -115,7 +115,7 @@ public class RobotContainer {
 
     public static double driveHorizontalLowAxis() {
       return RobotContainer.logitechF310.rightStickX() 
-           - RobotContainer.logitechF310.dpad.horizontal() * RobotMap.Constants.Drive.DPAD;
+           + RobotContainer.logitechF310.dpad.horizontal() * RobotMap.Constants.Drive.DPAD;
     }
 
     public static double driveHorizontalHighAxis() {

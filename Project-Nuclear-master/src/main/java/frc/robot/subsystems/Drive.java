@@ -66,7 +66,7 @@ public class Drive extends SubsystemBase {
       * WPI drivetrain classes defaultly assume left and right are opposite. call
       * this so we can apply + to both sides when moving forward. DO NOT CHANGE
       */
-    drive.setRightSideInverted(false);
+    //drive.setRightSideInverted(false);
     setDefaultCommand(new DriveControl(this));
   }
 

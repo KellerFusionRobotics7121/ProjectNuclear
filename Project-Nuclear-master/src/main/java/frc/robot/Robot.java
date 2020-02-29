@@ -47,6 +47,14 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Yellow", new SetDesiredColor(RobotContainer.colorSpinner, "Yellow"));
     SmartDashboard.putData("Green", new SetDesiredColor(RobotContainer.colorSpinner, "Green"));
   }
+
+  private void commonInit() {
+    postDashboardValues();
+  }
+  private void commonLoop() {
+    postDashboardValues();
+    CommandScheduler.getInstance().run();
+  }
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
    * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
@@ -61,13 +69,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-  }
-
-  private void commonLoop() {
-    
-    updateLED();
-    postDashboardValues();
-    Scheduler.getInstance().run();
+    commonLoop();
   }
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -91,6 +93,7 @@ public class Robot extends TimedRobot {
     // if (m_autonomousCommand != null) {
     //   m_autonomousCommand.schedule();
     // }
+    commonInit();
   }
 
   /**
@@ -98,6 +101,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    commonLoop();
   }
 
   @Override
@@ -109,6 +113,7 @@ public class Robot extends TimedRobot {
     // if (m_autonomousCommand != null) {
     //   m_autonomousCommand.cancel();
     // }
+    commonInit();
   }
 
   /**
@@ -116,11 +121,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    commonLoop();
   }
 
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
+    commonInit();
     CommandScheduler.getInstance().cancelAll();
   }
 
@@ -129,5 +136,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    commonLoop();
   }
 }

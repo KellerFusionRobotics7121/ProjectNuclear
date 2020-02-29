@@ -45,16 +45,16 @@ public class DriveControl extends CommandBase {
   @Override
   public void execute() {
   
-    effectiveFHA = RobotContainer.Axes.driveHorizontalHighAxis();
-    effectiveSHA = RobotContainer.Axes.driveHorizontalLowAxis();
-    if (drive.INVERT) {
-      effectiveFVA = -RobotContainer.Axes.driveVerticalHighAxis();
-      effectiveSVA = -RobotContainer.Axes.driveVerticalLowAxis();
+    if(drive.INVERT) {
+      effectiveFHA = -RobotContainer.Axes.driveHorizontalHighAxis();
+      effectiveSHA = -RobotContainer.Axes.driveHorizontalLowAxis();
     }
     else {
-      effectiveFVA = RobotContainer.Axes.driveVerticalHighAxis();
-      effectiveSVA = RobotContainer.Axes.driveVerticalLowAxis();
+      effectiveFHA = RobotContainer.Axes.driveHorizontalHighAxis();
+      effectiveSHA = RobotContainer.Axes.driveHorizontalLowAxis();
     }
+    effectiveFVA = RobotContainer.Axes.driveVerticalHighAxis();
+    effectiveSVA = RobotContainer.Axes.driveVerticalLowAxis();
     double forwardVal = effectiveFVA * RobotMap.Constants.Drive.HIGH
                       + effectiveSVA  * RobotMap.Constants.Drive.LOW;
     

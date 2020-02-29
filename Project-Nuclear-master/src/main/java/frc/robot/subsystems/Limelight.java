@@ -23,9 +23,11 @@ public class Limelight extends SubsystemBase{
 
     public final int VISION_PROCESSOR   = 0;
     public final int DRIVER_CAM         = 1;
+    NetworkTableEntry tx;
 
     public Limelight() {
         table = NetworkTableInstance.getDefault().getTable("limelight");
+        tx = table.getEntry("tx");
     }
 
     // Best Contour information
