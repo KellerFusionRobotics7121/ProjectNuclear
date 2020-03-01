@@ -46,12 +46,22 @@ public class RobotMap {
         public static final double HEIGHT         = 25.00f;//Inches
         public static final double ANGLE          = 66.00f;//Degrees
         public static final double X              = 0.00f; //Inches
+        public static final double WHEEL_RADIUS   = 3.00f; //Inches
+        public static final double MAX_RPM        = 5840.00; //(+/- 10%)
       }
     public class Limelight {
         public static final double HEIGHT     = 22.50f; //Inches
         public static final double ANGLE      = 10.00f; //Degrees
         public static final double X          = 0.00f;  //Inches
         public static final double kpDrive    = 0.01f;
+        
+        public final int DEFAULT_LED    = 0;
+        public final int LED_OFF        = 1;
+        public final int LED_BLINK      = 2;
+        public final int LED_ON         = 3;
+
+        public final int VISION_PROCESSOR   = 0;
+        public final int DRIVER_CAM         = 1;
       }
     public class Wrist {
       public static final double IN_PWR       = 0.50f;
