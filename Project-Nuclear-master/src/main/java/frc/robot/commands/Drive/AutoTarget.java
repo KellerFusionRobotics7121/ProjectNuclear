@@ -5,7 +5,7 @@ import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.subsystems.Drive;
 import frc.robot.subsystems.Limelight;
-import frc.robot.RobotMap;
+import frc.robot.RobotMap.Constants;
 
 public class AutoTarget extends CommandBase {
 
@@ -41,6 +41,8 @@ public class AutoTarget extends CommandBase {
 
         // maxDistance = 144;
         // minDistance = 48;
+        limelight.setCamMode(Constants.Limelight.VISION_PROCESSOR);
+
     }
 
     @Override
@@ -119,6 +121,7 @@ public class AutoTarget extends CommandBase {
 
     @Override
     public void end(boolean interrupted) {
+        limelight.setCamMode(Constants.Limelight.DRIVER_CAM);
         drive.setRaw(0, 0);
     }
 }

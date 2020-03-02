@@ -2,7 +2,7 @@ package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
+import frc.robot.RobotMap.Constants;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
@@ -24,9 +24,11 @@ public class AutoShoot extends CommandBase{
 
     @Override
     public void initialize(){
+
         deltaH = RobotMap.Constants.Field.GOAL_HEIGHT 
                - RobotMap.Constants.Shooter.HEIGHT;
         theta = Math.toRadians(RobotMap.Constants.Shooter.ANGLE);
+        limelight.setCamMode(Constants.Limelight.VISION_PROCESSOR);
 
     }
 
@@ -43,6 +45,7 @@ public class AutoShoot extends CommandBase{
         velocity = velocity / RobotMap.Constants.Shooter.WHEEL_RADIUS * 30 / Math.PI; //Convert from in/s to rev/min
         velocity /= RobotMap.Constants.Shooter.MAX_RPM; //convert to percentage
 
+
         shooter.setShooterPwr(velocity);
     }
 
@@ -52,6 +55,7 @@ public class AutoShoot extends CommandBase{
 
     @Override
     public void end(boolean interrupted) {
+        limelight.setCamMode(Constants.Limelight.DRIVER_CAM);
         shooter.setShooterPwr(0);
     }
 }

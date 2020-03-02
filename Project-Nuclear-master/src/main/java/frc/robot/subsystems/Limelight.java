@@ -13,6 +13,7 @@ public class Limelight extends SubsystemBase{
 
 
     private NetworkTable table;
+
     NetworkTableEntry tx;
 
     public Limelight() {
