@@ -2,7 +2,7 @@ package frc.robot.commands.Shooter;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
+import frc.robot.RobotMap.Constants;
 import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
@@ -25,7 +25,8 @@ public class AutoShoot extends CommandBase{
 
     @Override
     public void initialize(){
-        
+        limelight.setCamMode(Constants.Limelight.VISION_PROCESSOR);
+
     }
 
     @Override
@@ -33,10 +34,10 @@ public class AutoShoot extends CommandBase{
         d = (float) limelight.calculateDistance(); 
 
         //hopefully this math works
-        deltaH = RobotMap.Constants.Field.GOAL_HEIGHT 
-               - RobotMap.Constants.Shooter.HEIGHT;
-        theta = (float) Math.toRadians(RobotMap.Constants.Shooter.ANGLE);
-        velocity = (float) Math.sqrt(RobotMap.Constants.Field.GRAVITY*Math.pow(d, 2) / (2*(deltaH - d * Math.tan(theta))));
+        deltaH = Constants.Field.GOAL_HEIGHT 
+               - Constants.Shooter.HEIGHT;
+        theta = (float) Math.toRadians(Constants.Shooter.ANGLE);
+        velocity = (float) Math.sqrt(Constants.Field.GRAVITY*Math.pow(d, 2) / (2*(deltaH - d * Math.tan(theta))));
 
         shooter.setShooterPwr(velocity);
     }
@@ -47,6 +48,7 @@ public class AutoShoot extends CommandBase{
 
     @Override
     public void end(boolean interrupted) {
+        limelight.setCamMode(Constants.Limelight.DRIVER_CAM);
         shooter.setShooterPwr(0);
     }
 }

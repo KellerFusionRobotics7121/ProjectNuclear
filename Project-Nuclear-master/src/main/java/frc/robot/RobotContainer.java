@@ -17,6 +17,7 @@ import frc.robot.subsystems.Drive;
 import frc.robot.commands.Drive.DriveControl;
 import frc.robot.commands.Drive.Invert;
 import frc.robot.commands.Drive.AutoTarget;
+import frc.robot.commands.Drive.IdleDrive;
 
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.Intake.IntakeIn;
@@ -32,6 +33,7 @@ import frc.robot.commands.Wrist.WristControl;
 import frc.robot.subsystems.Shooter;
 import frc.robot.commands.Shooter.*;
 
+import frc.robot.subsystems.StageOne;
 import frc.robot.subsystems.StageTwo;
 import frc.robot.commands.Elevator.*;
 
@@ -53,7 +55,7 @@ public class RobotContainer {
   public static Wrist wrist = new Wrist();
   public static Conveyor conveyor = new Conveyor();
   public static Limelight limelight = new Limelight();
-  // public static StageOne stageOne = new StageOne();
+  public static StageOne stageOne = new StageOne();
   public static StageTwo stageTwo = new StageTwo();
   public static ColorSpinner colorSpinner = new ColorSpinner();
   // The robot's subsystems and commands are defined here...
@@ -77,18 +79,27 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    logitechF310.y.whileHeld(new Shoot(shooter));
+    logitechF310.x.whileHeld(new SlowShoot(shooter));
+    logitechF310.b.whileHeld(new FastShoot(shooter));
     logitechF310.righJoystickButton.toggleWhenPressed(new IntakeIn(intake));
     logitechF310.lefJoystickButton.toggleWhenPressed(new IntakeOut(intake));
-    logitechF310.x.whileHeld(new ConveyorIn(conveyor));
-    logitechF310.y.whileHeld(new ConveyorOut(conveyor));
-    logitechF310.a.whileHeld(new Shoot(shooter));
-    // logitechF310.lb.whileHeld(new StageOneUp());
-    // logitechF310.lb.whenReleased(new StageOneDown());
-    logitechF310.start.whenPressed(new Invert(drive));
+    if (logitechF310.leftTriggerPressed())  new ConveyorOut(conveyor);
+    logitechF310.b.whileHeld(new ConveyorIn(conveyor));
     if (logitechF310.rightTriggerPressed()) new WristControl(wrist);
     logitechF310.rb.whileHeld(new WristControl(wrist));
-    if (logitechF310.leftTriggerPressed())  new StageTwoUp(stageTwo);
-    logitechF310.b.whileHeld(new AutoTarget(limelight, drive));
+    logitechF310.a.whileHeld(new StageTwoUp(stageTwo));
+    logitechF310.start.whileHeld(new StageOneUp(stageOne));
+    logitechF310.back.whenReleased(new StageOneDown(stageOne));
+    if(logitechF310.rightStickX() == 0.0 && logitechF310.rightStickY() == 0.0 && logitechF310.leftStickX() == 0.0 && logitechF310.leftStickY() == 0.0){
+      new IdleDrive(drive);
+    }
+
+    // logitechF310.start.whenPressed(new Invert(drive));
+    // if (logitechF310.rightTriggerPressed()) new WristControl(wrist);
+    // logitechF310.rb.whileHeld(new WristControl(wrist));
+    // if (logitechF310.leftTriggerPressed())  new StageTwoUp(stageTwo);
+    // logitechF310.b.whileHeld(new AutoTarget(limelight, drive));
   }
 
 

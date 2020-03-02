@@ -16,13 +16,7 @@ public class Limelight extends SubsystemBase{
 
     private NetworkTable table;
 
-    public final int DEFAULT_LED    = 0;
-    public final int LED_OFF        = 1;
-    public final int LED_BLINK      = 2;
-    public final int LED_ON         = 3;
-
-    public final int VISION_PROCESSOR   = 0;
-    public final int DRIVER_CAM         = 1;
+    
     NetworkTableEntry tx;
 
     public Limelight() {

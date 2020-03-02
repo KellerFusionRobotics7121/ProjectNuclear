@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Talon;
@@ -80,6 +81,14 @@ public class Drive extends SubsystemBase {
     if(!RobotMap.Config.ENABLE_MOTORS) return;
 
     drive.arcadeDrive(xSpeed, zRotation);
+  }
+
+  public void setNeutral(){
+    _rghtFront.setNeutralMode(NeutralMode.Brake);
+    _rghtFollower.setNeutralMode(NeutralMode.Brake);
+    _leftFront.setNeutralMode(NeutralMode.Brake);
+    _leftFollower.setNeutralMode(NeutralMode.Brake);
+
   }
   public void setInvert(boolean Invert) {
     _leftFront.setInverted(Invert);
