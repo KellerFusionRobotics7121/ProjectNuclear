@@ -9,14 +9,11 @@ import frc.robot.RobotMap;
 
 public class Limelight extends SubsystemBase{
     
-    public final double angle = RobotMap.Constants.Limelight.ANGLE;      // angle between horizontal and limelight (degrees)
-    public final double height = RobotMap.Constants.Limelight.HEIGHT;       // height between ground and limelight (inches)
-    private final double h2 = RobotMap.Constants.Field.GOAL_HEIGHT;             // height between ground and middle of goal (inches)
+    
 
 
     private NetworkTable table;
 
-    
     NetworkTableEntry tx;
 
     public Limelight() {
@@ -165,7 +162,11 @@ public class Limelight extends SubsystemBase{
      * @return distance between robot and target in inches
      */
     public double calculateDistance() {
+        double angle = RobotMap.Constants.Limelight.ANGLE;      // angle between horizontal and limelight (degrees)
+        double height = RobotMap.Constants.Limelight.HEIGHT;    // height between ground and limelight (inches)
+        double h2 = RobotMap.Constants.Field.GOAL_HEIGHT;       // height between ground and middle of goal (inches)
         double a2 = getVOffset();     // angle between limelight and target (degrees)
+
         return  (h2-height) / Math.tan(Math.toRadians(angle+a2));
     }
 }
