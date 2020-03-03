@@ -25,9 +25,9 @@ public class AutoShoot extends CommandBase{
     @Override
     public void initialize(){
 
-        deltaH = RobotMap.Constants.Field.GOAL_HEIGHT 
-               - RobotMap.Constants.Shooter.HEIGHT;
-        theta = Math.toRadians(RobotMap.Constants.Shooter.ANGLE);
+        deltaH = Constants.Field.GOAL_HEIGHT 
+               - Constants.Shooter.HEIGHT;
+        theta = Math.toRadians(Constants.Shooter.ANGLE);
         limelight.setCamMode(Constants.Limelight.VISION_PROCESSOR);
 
     }
@@ -40,10 +40,10 @@ public class AutoShoot extends CommandBase{
 
         //hopefully this math works
         double radicalDenominator = 2 * (d * Math.tan(theta) - deltaH);
-        velocity = d/Math.cos(theta) * Math.sqrt(RobotMap.Constants.Field.GRAVITY/radicalDenominator);
+        velocity = d/Math.cos(theta) * Math.sqrt(Constants.Field.GRAVITY/radicalDenominator);
 
-        velocity = velocity / RobotMap.Constants.Shooter.WHEEL_RADIUS * 30 / Math.PI; //Convert from in/s to rev/min
-        velocity /= RobotMap.Constants.Shooter.MAX_RPM; //convert to percentage
+        velocity = velocity / Constants.Shooter.WHEEL_RADIUS * 30 / Math.PI; //Convert from in/s to rev/min
+        velocity /= Constants.Shooter.MAX_RPM; //convert to percentage
 
 
         shooter.setShooterPwr(velocity);
