@@ -16,12 +16,11 @@ public class AutoTarget extends CommandBase {
     private static float minAimCommand; //minimum command to make robot turn
     private static float targetHOffset; //desired horizontal offset of target
     private static double error;  //Error = Target - Actual
-    private static double previousError;
     private static double steeringAdjust;
 
-    private double kP, kI, kD;
+    private double kP, kI, kD, kF;
     private double integral, derivative;
-    private static double timeStep = 0.02f;
+    private static double timeStep;
 
     public AutoTarget(Limelight limelight, Drive drive) {
         this.limelight = limelight;
@@ -35,55 +34,47 @@ public class AutoTarget extends CommandBase {
         KpAim = 0.80f;
         minAimCommand = 0.05f;
         steeringAdjust = 0.00f;
-        kP = 0.45f;
-        kI = 0.54f;
-        kD = 0.00f;
+        kP = RobotMap.Constants.Drive.kPID.kP;
+        kI = RobotMap.Constants.Drive.kPID.kI;
+        kD = RobotMap.Constants.Drive.kPID.kD;
+        kF = RobotMap.Constants.Drive.kPID.kF;
+        timeStep = RobotMap.Constants.Drive.kPID.TIME_STEP;
 
         // maxDistance = 144;
         // minDistance = 48;
+        limelight.setLEDMode(Constants.Limelight.DEFAULT_LED);
         limelight.setCamMode(Constants.Limelight.VISION_PROCESSOR);
+        
 
     }
 
     @Override
     public void execute() {
-<<<<<<< HEAD
         //this.adjustAngle();
-        float a = (float) (0.50*(0.45 -  RobotMap.Constants.Drive.MIN));
-        headingError = (float) limelight.getHOffset();
-        steeringAdjust = (float)(-a*Math.cos(2*Math.PI/29.8*headingError)+a+RobotMap.Constants.Drive.MIN);
-        if (headingError > 0.05)
-            drive.setArcade(0, steeringAdjust);
-        else if (headingError < 0.05)
-            drive.setArcade(0, -steeringAdjust);
-        else {
-            drive.setNeutral("Brake");
-            drive.setRaw(0, 0);
-        }
-    }
-=======
-        if(!limelight.hasValidTarget()) return;
-        // float a = (float) (0.50*(0.60 -  RobotMap.Constants.Drive.MIN));
-        // error = (float) limelight.getHOffset();
-        // steeringAdjust = (float)(-a*Math.cos(2*Math.PI/29.8*error)+a+RobotMap.Constants.Drive.MIN);
-        // if (error > 0)
+        // float a = (float) (0.50*(0.45 -  RobotMap.Constants.Drive.MIN));
+        // headingError = (float) limelight.getHOffset();
+        // steeringAdjust = (float)(-a*Math.cos(2*Math.PI/29.8*headingError)+a+RobotMap.Constants.Drive.MIN);
+        // if (headingError > 0.05)
         //     drive.setArcade(0, steeringAdjust);
-        // else   
+        // else if (headingError < 0.05)
         //     drive.setArcade(0, -steeringAdjust);
->>>>>>> 7bec52e15c712504891aff1d7de59beac65ebbdd
-
+        // else {
+        //     drive.setNeutral("Brake");
+        //     drive.setRaw(0, 0);
+        // }
         error = limelight.getHOffset()/29.8; //Error as a percent
         integral += (error * timeStep); // increase by area under curve (dist * time)
-        derivative = (error - previousError) / timeStep; // velocity
-
-        steeringAdjust = (kP * error) + (kI * integral) + (kD * derivative);
-
-        if(steeringAdjust >= 0.8) steeringAdjust = 0.8;
-        else if(steeringAdjust <= -.08) steeringAdjust = -.08;
+        derivative = (error - drive.aimPreviousError) / timeStep; // velocity
+        if (error != 0)
+            steeringAdjust = (kP * error) + (kI * integral) + (kD * derivative) + error/Math.abs(error)*kF;
+        else 
+            steeringAdjust = 0;
+        if(steeringAdjust >= 0.5) steeringAdjust = 0.5;
+        else if(steeringAdjust <= -0.5) steeringAdjust = -0.5;
 
         drive.setArcade(0, steeringAdjust);
     
-        previousError = error;
+        drive.aimPreviousError = error;
     }
 
     // /**
@@ -138,6 +129,8 @@ public class AutoTarget extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         limelight.setCamMode(Constants.Limelight.DRIVER_CAM);
+        limelight.setLEDMode(Constants.Limelight.LED_OFF);
+
         drive.setRaw(0, 0);
     }
 }

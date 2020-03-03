@@ -114,7 +114,9 @@ public class Robot extends TimedRobot {
     // if (m_autonomousCommand != null) {
     //   m_autonomousCommand.cancel();
     // }
+    RobotContainer.limelight.setLEDMode(RobotMap.Constants.Limelight.LED_OFF);
     RobotContainer.limelight.setCamMode(RobotMap.Constants.Limelight.DRIVER_CAM);
+    
     commonInit();
   }
 

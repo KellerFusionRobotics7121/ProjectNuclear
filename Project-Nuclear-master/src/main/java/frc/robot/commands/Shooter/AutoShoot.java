@@ -28,6 +28,8 @@ public class AutoShoot extends CommandBase{
         deltaH = Constants.Field.GOAL_HEIGHT 
                - Constants.Shooter.HEIGHT;
         theta = Math.toRadians(Constants.Shooter.ANGLE);
+
+        limelight.setLEDMode(Constants.Limelight.DEFAULT_LED);
         limelight.setCamMode(Constants.Limelight.VISION_PROCESSOR);
 
     }
@@ -56,6 +58,8 @@ public class AutoShoot extends CommandBase{
     @Override
     public void end(boolean interrupted) {
         limelight.setCamMode(Constants.Limelight.DRIVER_CAM);
+        limelight.setLEDMode(Constants.Limelight.LED_OFF);
+
         shooter.setShooterPwr(0);
     }
 }

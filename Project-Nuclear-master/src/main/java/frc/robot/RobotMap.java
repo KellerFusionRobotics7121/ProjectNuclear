@@ -91,11 +91,13 @@ public class RobotMap {
       public static final double k    = 1;
       public static final double DPAD = 0.80f;
       public static final double MIN = 0.25f;
+      public static final double AIM_MAX = 0.50f;
       public class kPID {
-        public static final double kF = 0.00f;
-        public static final double kP = 0.01f;
-        public static final double kI = 0.01f;
+        public static final double kF = 0.20f;
+        public static final double kP = 0.80f;
+        public static final double kI = 0.10f;
         public static final double kD = 0.00f;
+        public static final double TIME_STEP = 0.02f;
       }
     }
   }

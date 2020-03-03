@@ -30,6 +30,7 @@ public class Drive extends SubsystemBase {
   private WPI_TalonSRX _rghtFollower;  
   private DifferentialDrive drive;
   public Boolean INVERT = false;
+  public double aimPreviousError = 0.00f;
 
   public Drive() {
     _leftFront = new WPI_TalonSRX(RobotMap.Motors.LEFT_FRONT);
