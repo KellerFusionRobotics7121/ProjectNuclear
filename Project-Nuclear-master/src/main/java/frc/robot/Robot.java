@@ -43,10 +43,10 @@ public class Robot extends TimedRobot {
   }
 
   private void postDashboardValues() {
-    SmartDashboard.putData("Red", new SetDesiredColor(RobotContainer.colorSpinner, "red"));
-    SmartDashboard.putData("Blue", new SetDesiredColor(RobotContainer.colorSpinner, "Blue"));
-    SmartDashboard.putData("Yellow", new SetDesiredColor(RobotContainer.colorSpinner, "Yellow"));
-    SmartDashboard.putData("Green", new SetDesiredColor(RobotContainer.colorSpinner, "Green"));
+    // SmartDashboard.putData("Red", new SetDesiredColor(RobotContainer.colorSpinner, "red"));
+    // SmartDashboard.putData("Blue", new SetDesiredColor(RobotContainer.colorSpinner, "Blue"));
+    // SmartDashboard.putData("Yellow", new SetDesiredColor(RobotContainer.colorSpinner, "Yellow"));
+    // SmartDashboard.putData("Green", new SetDesiredColor(RobotContainer.colorSpinner, "Green"));
   }
 
   private void commonInit() {

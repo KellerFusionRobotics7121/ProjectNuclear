@@ -42,13 +42,17 @@ public class AutoTarget extends CommandBase {
     @Override
     public void execute() {
         //this.adjustAngle();
-        float a = (float) (0.50*(0.60 -  RobotMap.Constants.Drive.MIN));
+        float a = (float) (0.50*(0.45 -  RobotMap.Constants.Drive.MIN));
         headingError = (float) limelight.getHOffset();
         steeringAdjust = (float)(-a*Math.cos(2*Math.PI/29.8*headingError)+a+RobotMap.Constants.Drive.MIN);
-        if (headingError > 0)
+        if (headingError > 0.05)
             drive.setArcade(0, steeringAdjust);
-        else   
+        else if (headingError < 0.05)
             drive.setArcade(0, -steeringAdjust);
+        else {
+            drive.setNeutral("Brake");
+            drive.setRaw(0, 0);
+        }
     }
 
     /**

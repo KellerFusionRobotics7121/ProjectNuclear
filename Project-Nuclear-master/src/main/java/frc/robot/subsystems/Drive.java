@@ -83,12 +83,20 @@ public class Drive extends SubsystemBase {
     drive.arcadeDrive(xSpeed, zRotation);
   }
 
-  public void setNeutral(){
-    _rghtFront.setNeutralMode(NeutralMode.Brake);
-    _rghtFollower.setNeutralMode(NeutralMode.Brake);
-    _leftFront.setNeutralMode(NeutralMode.Brake);
-    _leftFollower.setNeutralMode(NeutralMode.Brake);
-
+  public void setNeutral(String type){
+    if (type == "Brake") {
+      _rghtFront.setNeutralMode(NeutralMode.Brake);
+      _rghtFollower.setNeutralMode(NeutralMode.Brake);
+      _leftFront.setNeutralMode(NeutralMode.Brake);
+      _leftFollower.setNeutralMode(NeutralMode.Brake);
+    }
+    else if (type == "Coast") {
+      _rghtFront.setNeutralMode(NeutralMode.Coast);
+      _rghtFollower.setNeutralMode(NeutralMode.Coast);
+      _leftFront.setNeutralMode(NeutralMode.Coast);
+      _leftFollower.setNeutralMode(NeutralMode.Coast);
+    }
+    
   }
   public void setInvert(boolean Invert) {
     _leftFront.setInverted(Invert);

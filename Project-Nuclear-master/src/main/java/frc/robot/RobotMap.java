@@ -40,9 +40,9 @@ public class RobotMap {
 
     public class Shooter {
         public static final double IDLE_PWR       = 0.10f;
-        public static final double SHOOT_PWR      = 0.80f;
-        public static final double SHOOT_PWR_FAST = 0.80f;
-        public static final double SHOOT_PWR_SLOW = 0.80f;
+        public static final double SHOOT_PWR      = 0.60f;
+        public static final double SHOOT_PWR_FAST = 0.70f;
+        public static final double SHOOT_PWR_SLOW = 0.10f;
         public static final double SHOOT_IN_PWR   = 0.80f;
         public static final double DEAD_PWR       = 0.00f;
 
@@ -88,7 +88,7 @@ public class RobotMap {
       public static final double LOW  = 0.60f;
       public static final double k    = 1;
       public static final double DPAD = 0.80f;
-      public static final double MIN = 0.30f;
+      public static final double MIN = 0.25f;
       public class kPID {
         public static final double kF = 0.00f;
         public static final double kP = 0.01f;

@@ -17,7 +17,6 @@ import frc.robot.subsystems.Drive;
 import frc.robot.commands.Drive.DriveControl;
 import frc.robot.commands.Drive.Invert;
 import frc.robot.commands.Drive.AutoTarget;
-import frc.robot.commands.Drive.IdleDrive;
 
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.Intake.IntakeIn;
@@ -57,7 +56,7 @@ public class RobotContainer {
   public static Limelight limelight = new Limelight();
   public static StageOne stageOne = new StageOne();
   public static StageTwo stageTwo = new StageTwo();
-  public static ColorSpinner colorSpinner = new ColorSpinner();
+  // public static ColorSpinner colorSpinner = new ColorSpinner();
   // The robot's subsystems and commands are defined here...
 
 
@@ -79,7 +78,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    logitechF310.y.whileHeld(new Shoot(shooter));
+    logitechF310.y.whileHeld(new AutoTarget(limelight, drive));
+    //logitechF310.y.whileHeld(new Shoot(shooter));
     logitechF310.x.whileHeld(new SlowShoot(shooter));
     logitechF310.b.whileHeld(new FastShoot(shooter));
     logitechF310.righJoystickButton.toggleWhenPressed(new IntakeIn(intake));
@@ -91,9 +91,7 @@ public class RobotContainer {
     logitechF310.a.whileHeld(new StageTwoUp(stageTwo));
     logitechF310.start.whileHeld(new StageOneUp(stageOne));
     logitechF310.back.whenReleased(new StageOneDown(stageOne));
-    if(logitechF310.rightStickX() == 0.0 && logitechF310.rightStickY() == 0.0 && logitechF310.leftStickX() == 0.0 && logitechF310.leftStickY() == 0.0){
-      new IdleDrive(drive);
-    }
+
 
     // logitechF310.start.whenPressed(new Invert(drive));
     // if (logitechF310.rightTriggerPressed()) new WristControl(wrist);
