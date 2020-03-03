@@ -10,9 +10,8 @@ public class AutoShoot extends CommandBase{
     private final Limelight limelight;
     private final Shooter shooter;
 
-    public float d;         //distance between robot and goal
-    public float velocity;  //initial velocity (inches/second)
-    //constant based on RobotMap
+    public double d;         //distance between robot and goal
+    public double velocity;  //initial velocity (inches/second)
     public double deltaH;   //difference in between h2 and h1 (inches)
     public double theta;    //angle of shooter (radians)
 
@@ -25,19 +24,27 @@ public class AutoShoot extends CommandBase{
 
     @Override
     public void initialize(){
+
+        deltaH = Constants.Field.GOAL_HEIGHT 
+               - Constants.Shooter.HEIGHT;
+        theta = Math.toRadians(Constants.Shooter.ANGLE);
         limelight.setCamMode(Constants.Limelight.VISION_PROCESSOR);
 
     }
 
     @Override
     public void execute() {
-        d = (float) limelight.calculateDistance(); 
+        if(!limelight.hasValidTarget()) return;
+        
+        d = limelight.calculateDistance() + 29.25; 
 
         //hopefully this math works
-        deltaH = Constants.Field.GOAL_HEIGHT 
-               - Constants.Shooter.HEIGHT;
-        theta = (float) Math.toRadians(Constants.Shooter.ANGLE);
-        velocity = (float) Math.sqrt(Constants.Field.GRAVITY*Math.pow(d, 2) / (2*(deltaH - d * Math.tan(theta))));
+        double radicalDenominator = 2 * (d * Math.tan(theta) - deltaH);
+        velocity = d/Math.cos(theta) * Math.sqrt(Constants.Field.GRAVITY/radicalDenominator);
+
+        velocity = velocity / Constants.Shooter.WHEEL_RADIUS * 30 / Math.PI; //Convert from in/s to rev/min
+        velocity /= Constants.Shooter.MAX_RPM; //convert to percentage
+
 
         shooter.setShooterPwr(velocity);
     }
