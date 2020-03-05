@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import edu.wpi.first.cameraserver.CameraServer;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -40,6 +42,8 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
+    CameraServer.getInstance().startAutomaticCapture(0);
+    CameraServer.getInstance().startAutomaticCapture(1);
   }
 
   private void postDashboardValues() {
@@ -47,6 +51,8 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putData("Blue", new SetDesiredColor(RobotContainer.colorSpinner, "Blue"));
     // SmartDashboard.putData("Yellow", new SetDesiredColor(RobotContainer.colorSpinner, "Yellow"));
     // SmartDashboard.putData("Green", new SetDesiredColor(RobotContainer.colorSpinner, "Green"));
+    SmartDashboard.putNumber("Speed", robotContainer.shooter.shooterSpeed);
+    SmartDashboard.putNumber("Distance", robotContainer.limelight.distance);
   }
 
   private void commonInit() {
@@ -69,7 +75,7 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
+    // CommandScheduler.getInstance().run();
     commonLoop();
   }
   /**
@@ -118,6 +124,8 @@ public class Robot extends TimedRobot {
     RobotContainer.limelight.setCamMode(RobotMap.Constants.Limelight.DRIVER_CAM);
     
     commonInit();
+
+
   }
 
   /**

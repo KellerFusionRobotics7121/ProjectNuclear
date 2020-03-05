@@ -18,7 +18,7 @@ import frc.robot.RobotMap;
 public class CustomGamepad extends Joystick {
 
     private static final double joystickThreshold = 0.05;
-    private static final double triggerThreshold = 0.1;
+    private static final double triggerThreshold = 0.05;
 
     public JoystickButton a, b, x, y;
     public JoystickButton lb, rb;
@@ -36,6 +36,7 @@ public class CustomGamepad extends Joystick {
 
         lb = new JoystickButton(this, RobotMap.xInputGamepad.BTN_LB);
         rb = new JoystickButton(this, RobotMap.xInputGamepad.BTN_RB);
+
 
         start = new JoystickButton(this, RobotMap.xInputGamepad.BTN_START);
         back  = new JoystickButton(this, RobotMap.xInputGamepad.BTN_BACK);
@@ -87,5 +88,8 @@ public class CustomGamepad extends Joystick {
     }
     public int buttonrb(){
         return this.rb.get() ? 1 : 0;
+    }
+    public int buttonlb(){
+        return this.lb.get() ? 1 : 0;
     }
 }

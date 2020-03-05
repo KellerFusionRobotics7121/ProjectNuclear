@@ -40,11 +40,11 @@ public class Intake extends SubsystemBase {
   // NOTE: do not use - slow refresh rate
   // public void setIntakePwr(IntakeState state) {
   //   switch(state) {
-  //     case IN: setIntakePwr(RobotMap.Constants.INTAKE_IN_PWR);
-  //     case OUT: setIntakePwr(RobotMap.Constants.INTAKE_OUT_PWR);
-  //     case STOPPED: setIntakePwr(0.0f);
-  //   }
+   //    case IN: setIntakePwr(RobotMap.Constants.Intake.IN_PWR);
+   //    case OUT: setIntakePwr(RobotMap.Constants.Intake.OUT_PWR);
+   //    case STOPPED: setIntakePwr(0.0f);
+    // }
 
-  //   intakeState = state;
-  // }
+     // intakeState = state;
+   //}
 }

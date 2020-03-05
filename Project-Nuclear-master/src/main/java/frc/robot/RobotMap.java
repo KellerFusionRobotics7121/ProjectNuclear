@@ -22,13 +22,13 @@ public class RobotMap {
   public class Constants {
 
     public class Field {
-      public static final double GRAVITY        = 386.09f;
-      public static final double GOAL_HEIGHT    = 98.25f;
+      public static final double GRAVITY        = 386.088f;
+      public static final double GOAL_HEIGHT    = 90.75f;
     }
     public class Intake {
       public static final double DEAD_PWR  = 0.00f;
       public static final double IN_PWR    = 0.60f;
-      public static final double OUT_PWR   =-0.40f;
+      public static final double OUT_PWR   =-0.80f;
     }
 
     public class Color{
@@ -39,22 +39,22 @@ public class RobotMap {
     }
 
     public class Shooter {
-        public static final double IDLE_PWR       = 0.10f;
-        public static final double SHOOT_PWR      = 0.60f;
+        public static final double IDLE_PWR       = 0.22f;
+        public static final double SHOOT_PWR      = 0.50f;
         public static final double SHOOT_PWR_FAST = 0.70f;
-        public static final double SHOOT_PWR_SLOW = 0.10f;
+        public static final double SHOOT_PWR_SLOW = 0.20f;
         public static final double SHOOT_IN_PWR   = 0.80f;
         public static final double DEAD_PWR       = 0.00f;
 
         public static final double HEIGHT         = 25.00f;//Inches
         public static final double ANGLE          = 66.00f;//Degrees
         public static final double X              = 0.00f; //Inches
-        public static final double WHEEL_RADIUS   = 3.00f; //Inches
+        public static final double WHEEL_RADIUS   = 2.125f; //Inches
         public static final double MAX_RPM        = 5840.00; //(+/- 10%)
       }
     public class Limelight {
-        public static final double HEIGHT     = 22.50f; //Inches
-        public static final double ANGLE      = 55.00f; //Degrees
+        public static final double HEIGHT     = 26.5f; //Inches
+        public static final double ANGLE      = 37.00f; //Degrees
         public static final double X          = 0.00f;  //Inches
         public static final double kpDrive    = 0.01f;
         

@@ -29,7 +29,7 @@ public class ShootIdle extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     @Override
     public void execute() {  
-        shooter.setShooterPwr(RobotMap.Constants.Shooter.IDLE_PWR);
+        shooter.setOnePointShooterPwr(RobotMap.Constants.Shooter.IDLE_PWR);
     }
 
     // Make this return true when this Command no longer needs to run execute()

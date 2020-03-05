@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Talon;
@@ -21,19 +23,36 @@ import frc.robot.commands.Intake.*;
 
 public class Shooter extends SubsystemBase {
   
-  private WPI_TalonSRX shooterBot, shooterTop;
-  
+  private WPI_TalonFX shooterBot, shooterTop;
+  public double shooterSpeed = 0.0;
   public Shooter() {
-    shooterTop = new WPI_TalonSRX(RobotMap.Motors.SHOOTER_TOP);
-    shooterBot = new WPI_TalonSRX(RobotMap.Motors.SHOOTER_BOT);
+    shooterTop = new WPI_TalonFX(RobotMap.Motors.SHOOTER_TOP);
+    shooterBot = new WPI_TalonFX(RobotMap.Motors.SHOOTER_BOT);
+
+    shooterTop.configFactoryDefault();
+    shooterBot.configFactoryDefault();
+
+    shooterTop.setInverted(true);
+    shooterBot.setInverted(true);
+
+    shooterTop.setSensorPhase(true);
+    shooterBot.setSensorPhase(true);
+
     setDefaultCommand(new ShootIdle(this));
   }
 
   // shooter controls
   
   public void setShooterPwr(double val) {
-    shooterBot.set(-val);
-    shooterTop.set(-val);
+    shooterBot.set(ControlMode.PercentOutput, val);
+    shooterTop.set(ControlMode.PercentOutput, val);
+    shooterSpeed = val;
+  }
+
+  public void setOnePointShooterPwr(double val){
+    shooterBot.set(ControlMode.PercentOutput, val);
+    shooterTop.set(ControlMode.PercentOutput, val*0.45);
+    shooterSpeed = val;
   }
 
   // NOTE: do not use - slow refresh rate

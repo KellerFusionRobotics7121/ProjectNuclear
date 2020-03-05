@@ -23,8 +23,7 @@ import frc.robot.commands.Intake.IntakeIn;
 import frc.robot.commands.Intake.IntakeOut;
 
 import frc.robot.subsystems.Conveyor;
-import frc.robot.commands.Conveyor.ConveyorIn;
-import frc.robot.commands.Conveyor.ConveyorOut;
+import frc.robot.commands.Conveyor.ConveyorControl;
 
 import frc.robot.subsystems.Wrist;
 import frc.robot.commands.Wrist.WristControl;
@@ -79,15 +78,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     logitechF310.y.whileHeld(new AutoTarget(limelight, drive));
-    //logitechF310.y.whileHeld(new Shoot(shooter));
-    logitechF310.x.whileHeld(new SlowShoot(shooter));
-    logitechF310.b.whileHeld(new FastShoot(shooter));
-    logitechF310.righJoystickButton.toggleWhenPressed(new IntakeIn(intake));
-    logitechF310.lefJoystickButton.toggleWhenPressed(new IntakeOut(intake));
-    if (logitechF310.leftTriggerPressed())  new ConveyorOut(conveyor);
-    logitechF310.b.whileHeld(new ConveyorIn(conveyor));
-    if (logitechF310.rightTriggerPressed()) new WristControl(wrist);
-    logitechF310.rb.whileHeld(new WristControl(wrist));
+    logitechF310.b.whileHeld(new AutoShoot(limelight, shooter));
+    // logitechF310.x.whileHeld(new Shoot(shooter));
+    // logitechF310.y.whileHeld(new AutoShoot(limelight, shooter));
+    logitechF310.righJoystickButton.whileHeld(new IntakeIn(intake));
+    logitechF310.lefJoystickButton.whileHeld(new IntakeOut(intake));
     logitechF310.a.whileHeld(new StageTwoUp(stageTwo));
     logitechF310.start.whileHeld(new StageOneUp(stageOne));
     logitechF310.back.whenReleased(new StageOneDown(stageOne));

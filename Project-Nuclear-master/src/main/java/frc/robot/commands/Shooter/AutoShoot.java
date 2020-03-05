@@ -38,7 +38,7 @@ public class AutoShoot extends CommandBase{
     public void execute() {
         if(!limelight.hasValidTarget()) return;
         
-        d = limelight.calculateDistance() + 29.25; 
+        d = limelight.calculateDistance() - 15; 
 
         //hopefully this math works
         double radicalDenominator = 2 * (d * Math.tan(theta) - deltaH);

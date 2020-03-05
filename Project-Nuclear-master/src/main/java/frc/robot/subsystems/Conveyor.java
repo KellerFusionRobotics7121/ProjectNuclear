@@ -25,7 +25,7 @@ public class Conveyor extends SubsystemBase {
 
     //conveyorbk.setSafetyEnabled(true);
     //setDefaultCommand(new ConveyorStop(this));
-    setDefaultCommand(new ConveyorStop(this));
+    setDefaultCommand(new ConveyorControl(this));
   }
 
   public void setConveyorPwr(double val) {
