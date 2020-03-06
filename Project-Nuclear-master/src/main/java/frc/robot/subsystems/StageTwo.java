@@ -13,6 +13,7 @@ import frc.robot.RobotMap;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
+import frc.robot.commands.Elevator.StageTwoIdle;
 /**
  * Add your docs here.
  */
@@ -27,12 +28,13 @@ public class StageTwo extends SubsystemBase {
     stageTwo = new VictorSPX(RobotMap.Motors.STAGETWO);
     stageTwo_Follower = new VictorSPX(RobotMap.Motors.STAGETWO_FOLLOW);
     //stageTwo.setSafetyEnabled(true);
+    setDefaultCommand(new StageTwoIdle(this));
   }
 
   // intake controls
   
   public void setPwr(double val) {
     stageTwo.set(ControlMode.PercentOutput,val);
-    stageTwo.set(ControlMode.PercentOutput, -1*val);
+    stageTwo_Follower.set(ControlMode.PercentOutput, -1*val);
   }
 }

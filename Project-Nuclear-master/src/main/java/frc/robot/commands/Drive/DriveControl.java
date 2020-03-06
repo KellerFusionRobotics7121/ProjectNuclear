@@ -39,12 +39,12 @@ public class DriveControl extends CommandBase {
   // Called just before this Command runs the first time
   @Override
   public void initialize() {
+    drive.setRamp(0.5);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
-  
     if(drive.INVERT) {
       effectiveFHA = -RobotContainer.Axes.driveHorizontalHighAxis();
       effectiveSHA = -RobotContainer.Axes.driveHorizontalLowAxis();

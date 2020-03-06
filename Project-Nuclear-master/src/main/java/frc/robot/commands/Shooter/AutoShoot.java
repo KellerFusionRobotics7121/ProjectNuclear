@@ -45,10 +45,9 @@ public class AutoShoot extends CommandBase{
         velocity = d/Math.cos(theta) * Math.sqrt(Constants.Field.GRAVITY/radicalDenominator);
 
         velocity = velocity / Constants.Shooter.WHEEL_RADIUS * 30 / Math.PI; //Convert from in/s to rev/min
-        velocity /= Constants.Shooter.MAX_RPM; //convert to percentage
-
-
-        shooter.setShooterPwr(velocity);
+        velocity = (velocity/Constants.Shooter.MAX_RPM) + Constants.Shooter.VEL_CONST; //convert to percentage
+        velocity = d<48 ? velocity + Constants.Shooter.CLOSE_CONST : velocity;
+        shooter.setShooterPwr(velocity>0.8 ? 0.8 : velocity);
     }
 
     public boolean isFinished(){

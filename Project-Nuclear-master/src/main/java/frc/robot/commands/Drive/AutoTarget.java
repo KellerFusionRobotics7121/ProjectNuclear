@@ -44,24 +44,11 @@ public class AutoTarget extends CommandBase {
         // minDistance = 48;
         limelight.setLEDMode(Constants.Limelight.DEFAULT_LED);
         limelight.setCamMode(Constants.Limelight.VISION_PROCESSOR);
-        
-
+        drive.setRamp(0.00);
     }
 
     @Override
     public void execute() {
-        //this.adjustAngle();
-        // float a = (float) (0.50*(0.45 -  RobotMap.Constants.Drive.MIN));
-        // headingError = (float) limelight.getHOffset();
-        // steeringAdjust = (float)(-a*Math.cos(2*Math.PI/29.8*headingError)+a+RobotMap.Constants.Drive.MIN);
-        // if (headingError > 0.05)
-        //     drive.setArcade(0, steeringAdjust);
-        // else if (headingError < 0.05)
-        //     drive.setArcade(0, -steeringAdjust);
-        // else {
-        //     drive.setNeutral("Brake");
-        //     drive.setRaw(0, 0);
-        // }
         error = limelight.getHOffset()/29.8; //Error as a percent
         integral += (error * timeStep); // increase by area under curve (dist * time)
         derivative = (error - drive.aimPreviousError) / timeStep; // velocity
@@ -71,54 +58,10 @@ public class AutoTarget extends CommandBase {
             steeringAdjust = 0;
         if(steeringAdjust >= 0.5) steeringAdjust = 0.5;
         else if(steeringAdjust <= -0.5) steeringAdjust = -0.5;
-
+        steeringAdjust = drive.INVERT ? -steeringAdjust : steeringAdjust;
         drive.setArcade(0, steeringAdjust);
     
         drive.aimPreviousError = error;
-    }
-
-    // /**
-    //  * moves robot forwards or backwards until it is within the range the robot can shoot from
-    //  * @return true if the robot is within range. false otherwise
-    //  */
-    // private boolean getWithinRange(){ 
-    //     Double kPDrive = RobotMap.Constants.Limelight.kpDrive;
-    //     float distance = (float) limelight.calculateDistance();
-    //     if(distance < minDistance){
-    //         drive.setArcade((distance - minDistance) * kPDrive, 0);
-    //         return false;
-    //     }
-    //     else if(distance > maxDistance){
-    //         drive.setArcade((distance - maxDistance) * kPDrive,0);
-    //         return false;
-    //     }
-    //     return true;
-    // }
-
-    /**
-     * Adjusts the angle of the robot
-     */
-    private boolean adjustAngle(){
-        double d2 = Math.abs(RobotMap.Constants.Limelight.X - RobotMap.Constants.Shooter.X);   //horizontal distance between limelight and shooter (inches)
-        targetHOffset = (float) Math.atan(Math.toRadians(d2/limelight.calculateDistance()));
-        error = (float) limelight.getHOffset() - targetHOffset;
-        drive.setArcade(0, KpAim*error/29.8);
-        //hopefully this math is correct
- 
-        // error = targetHOffset - (float) limelight.getHOffset();  //Error = Target - actual
-        // float steeringAdjust = 0.0f;
-        // if (Math.abs(error) > 5.0)
-        // {
-        //     steeringAdjust = KpAim*error;
-        // }
-        // else if (Math.abs(error) > 2.0)
-        // {
-        //     steeringAdjust = KpAim*error + minAimCommand;
-        // }
-        // //retrieve rotation value and manipulate it with steeringAdjust
-
-
-        return Math.abs(targetHOffset - (float) limelight.getHOffset()) < 3;
     }
 
     @Override

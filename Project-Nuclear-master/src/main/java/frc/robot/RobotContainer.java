@@ -81,8 +81,9 @@ public class RobotContainer {
     logitechF310.b.whileHeld(new AutoShoot(limelight, shooter));
     // logitechF310.x.whileHeld(new Shoot(shooter));
     // logitechF310.y.whileHeld(new AutoShoot(limelight, shooter));
-    logitechF310.righJoystickButton.whileHeld(new IntakeIn(intake));
-    logitechF310.lefJoystickButton.whileHeld(new IntakeOut(intake));
+    logitechF310.x.whenPressed(new Invert(drive));
+    logitechF310.righJoystickButton.toggleWhenPressed(new IntakeIn(intake));
+    logitechF310.lefJoystickButton.toggleWhenPressed(new IntakeOut(intake));
     logitechF310.a.whileHeld(new StageTwoUp(stageTwo));
     logitechF310.start.whileHeld(new StageOneUp(stageOne));
     logitechF310.back.whenReleased(new StageOneDown(stageOne));

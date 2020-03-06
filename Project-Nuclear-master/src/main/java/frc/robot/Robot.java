@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
   private Command autonomousCommand;
 
   private RobotContainer robotContainer;
+  DigitalOutput led;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -44,6 +45,11 @@ public class Robot extends TimedRobot {
     robotContainer = new RobotContainer();
     CameraServer.getInstance().startAutomaticCapture(0);
     CameraServer.getInstance().startAutomaticCapture(1);
+    led = new DigitalOutput(RobotMap.Sensors.LED_STRIP);
+  }
+
+  private void updateLED() {
+    led.set(DriverStation.getInstance().getAlliance() != Alliance.Red);
   }
 
   private void postDashboardValues() {
@@ -59,6 +65,7 @@ public class Robot extends TimedRobot {
     postDashboardValues();
   }
   private void commonLoop() {
+    updateLED();
     postDashboardValues();
     CommandScheduler.getInstance().run();
   }

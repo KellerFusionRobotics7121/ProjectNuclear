@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Talon;
@@ -24,19 +25,19 @@ import frc.robot.commands.Drive.DriveControl;
  */
 public class Drive extends SubsystemBase {
 
-  private WPI_TalonSRX _leftFront;
-  private WPI_TalonSRX _leftFollower;
-  private WPI_TalonSRX _rghtFront;  
-  private WPI_TalonSRX _rghtFollower;  
+  private WPI_TalonFX _leftFront;
+  private WPI_TalonFX _leftFollower;
+  private WPI_TalonFX _rghtFront;  
+  private WPI_TalonFX _rghtFollower;  
   private DifferentialDrive drive;
   public Boolean INVERT = false;
   public double aimPreviousError = 0.00f;
 
   public Drive() {
-    _leftFront = new WPI_TalonSRX(RobotMap.Motors.LEFT_FRONT);
-    _leftFollower = new WPI_TalonSRX(RobotMap.Motors.LEFT_FOLLOW);
-    _rghtFront = new WPI_TalonSRX(RobotMap.Motors.RIGHT_FRONT);
-    _rghtFollower = new WPI_TalonSRX(RobotMap.Motors.RIGHT_FOLLOW);
+    _leftFront = new WPI_TalonFX(RobotMap.Motors.LEFT_FRONT);
+    _leftFollower = new WPI_TalonFX(RobotMap.Motors.LEFT_FOLLOW);
+    _rghtFront = new WPI_TalonFX(RobotMap.Motors.RIGHT_FRONT);
+    _rghtFollower = new WPI_TalonFX(RobotMap.Motors.RIGHT_FOLLOW);
     drive = new DifferentialDrive(_leftFront, _rghtFront);
 
     _rghtFront.configFactoryDefault();
@@ -70,6 +71,9 @@ public class Drive extends SubsystemBase {
       */
     //drive.setRightSideInverted(false);
     setDefaultCommand(new DriveControl(this));
+
+    _rghtFollower.configNeutralDeadband(0.00);
+    _leftFollower.configNeutralDeadband(0.00);
   }
 
   public void setRaw(double leftVal, double rightVal) {
@@ -97,7 +101,20 @@ public class Drive extends SubsystemBase {
       _leftFront.setNeutralMode(NeutralMode.Coast);
       _leftFollower.setNeutralMode(NeutralMode.Coast);
     }
-    
+  }
+  public void setRamp(double time){
+    if (time <= 10 && time > 0) {
+      _rghtFront.configOpenloopRamp(time);
+      _rghtFollower.configOpenloopRamp(time);
+      _leftFront.configOpenloopRamp(time);
+      _leftFollower.configOpenloopRamp(time);
+    }
+    else {
+      _rghtFront.configOpenloopRamp(0);
+      _rghtFollower.configOpenloopRamp(0);
+      _leftFront.configOpenloopRamp(0);
+      _leftFollower.configOpenloopRamp(0);
+    }
   }
   public void setInvert(boolean Invert) {
     _leftFront.setInverted(Invert);

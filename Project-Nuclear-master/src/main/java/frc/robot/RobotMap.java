@@ -27,7 +27,7 @@ public class RobotMap {
     }
     public class Intake {
       public static final double DEAD_PWR  = 0.00f;
-      public static final double IN_PWR    = 0.60f;
+      public static final double IN_PWR    = 0.80f;
       public static final double OUT_PWR   =-0.80f;
     }
 
@@ -50,11 +50,14 @@ public class RobotMap {
         public static final double ANGLE          = 66.00f;//Degrees
         public static final double X              = 0.00f; //Inches
         public static final double WHEEL_RADIUS   = 2.125f; //Inches
-        public static final double MAX_RPM        = 5840.00; //(+/- 10%)
+        public static final double MAX_RPM        = 6380.00; //(+/- 10%)nope hopefully since fx
+
+        public static final double VEL_CONST      = 0.16f;
+        public static final double CLOSE_CONST    = 0.20f;
       }
     public class Limelight {
         public static final double HEIGHT     = 26.5f; //Inches
-        public static final double ANGLE      = 37.00f; //Degrees
+        public static final double ANGLE      = 36.00f; //Degrees
         public static final double X          = 0.00f;  //Inches
         public static final double kpDrive    = 0.01f;
         

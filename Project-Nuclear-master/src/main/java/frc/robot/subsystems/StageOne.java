@@ -13,18 +13,19 @@ import frc.robot.RobotMap;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
+import frc.robot.commands.Elevator.StageOneIdle;
 
 /**
  * Add your docs here.
  */
 
 public class StageOne extends SubsystemBase {
-  CANCoder elePos = new CANCoder(RobotMap.Motors.STAGEONE);
 
   private VictorSPX stageOne;
  
   public StageOne() {
     stageOne = new VictorSPX(RobotMap.Motors.STAGEONE);
+    setDefaultCommand(new StageOneIdle(this));
     //stageOne.setSafetyEnabled(true);
   }
 
